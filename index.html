@@ -4,14 +4,17 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JT Model Group</title>
+  <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Tenor+Sans&display=swap" rel="stylesheet"/>
   <style>
+    html, body { margin: 0; padding: 0; width: 100%; overflow-x: clip; }
+    html { scroll-behavior: smooth; background: #111; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --black: #111;
       --white: #fafaf8;
-      --gray: #999;
+      --gray: #444;
       --light: #f0f0ec;
       --accent: #b8a88a;
     }
@@ -20,9 +23,10 @@
       background: var(--white);
       color: var(--black);
       font-family: 'Tenor Sans', sans-serif;
-      font-size: 13px;
+      font-size: 16px;
       letter-spacing: 0.05em;
       -webkit-font-smoothing: antialiased;
+      min-width: 0;
     }
 
     /* NAV */
@@ -34,13 +38,13 @@
       justify-content: space-between;
       align-items: center;
       padding: 24px 32px;
-      background: rgba(250,250,248,0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
     }
 
     .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
+      font-size: 22px;
       font-weight: 300;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -49,7 +53,7 @@
     }
 
     .nav-contact {
-      font-size: 10px;
+      font-size: 13px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--gray);
@@ -58,45 +62,128 @@
     }
     .nav-contact:hover { color: var(--black); }
 
-    /* HERO */
-    .hero { padding-top: 88px; }
-
-    .hero-img-placeholder {
-      width: 100%;
-      aspect-ratio: 4/5;
-      background: linear-gradient(160deg, #e2e2dc 0%, #ccccc4 100%);
-      display: flex;
+    .hamburger {
+      display: none;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: #aaa;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
     }
-    .hero-img-placeholder span {
-      font-size: 9px;
-      letter-spacing: 0.2em;
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--black);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0; right: 0;
+      z-index: 99;
+      background: rgba(250,250,248,0.97);
+      backdrop-filter: blur(12px);
+      padding: 0 32px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .mobile-menu.open {
+      max-height: 120px;
+      padding: 24px 32px;
+    }
+    .mobile-menu a {
+      font-size: 15px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      display: block;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+
+    @media (max-width: 767px) {
+      .nav-contact { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+    }
+
+    /* HERO */
+    .hero {
+      padding-top: 72px;
+      position: relative;
+    }
+
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0) 35%,
+        rgba(0,0,0,0.55) 80%,
+        rgba(0,0,0,0.75) 100%
+      );
     }
 
     .hero-caption {
-      padding: 28px 32px 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-end;
     }
 
     .hero-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
+      font-size: 72px;
       font-weight: 300;
       letter-spacing: -0.01em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
     }
 
     .hero-type {
-      font-size: 10px;
-      letter-spacing: 0.15em;
+      font-size: 14px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--gray);
+      color: rgba(255,255,255,0.88);
+    }
+
+    .hero-location {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d4b98a;
     }
 
     /* DIVIDER */
@@ -104,53 +191,101 @@
       width: calc(100% - 64px);
       height: 1px;
       background: var(--light);
-      margin: 32px 32px;
+      margin: 36px 32px;
     }
 
     /* ABOUT */
     .about { padding: 0 32px 48px; }
     .about p {
-      font-size: 14px;
+      font-size: 17px;
       line-height: 1.9;
       color: var(--gray);
     }
 
-    /* PHOTOS */
-    .photos { padding: 0 32px 56px; }
+    /* PORTFOLIO SLIDER */
+    .photos { padding: 0 0 56px; overflow: hidden; }
+
+    .photos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 32px 20px;
+    }
+
     .photos-label {
-      font-size: 10px;
+      font-size: 14px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 20px;
     }
 
-    .photos-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .photo-item {
-      aspect-ratio: 2/3;
-      background: linear-gradient(160deg, #e2e2dc 0%, #ccccc4 100%);
+    .slider-controls {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .slider-btn {
+      background: none;
+      border: 1px solid var(--light);
+      color: var(--black);
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      font-size: 22px;
+      display: flex;
       align-items: center;
       justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .slider-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.slider-viewport {
+      overflow: hidden;
+      width: 100%;
+      height: 60vh;
+      max-height: 520px;
+    }
+
+    .slider-track {
+      display: flex;
+      gap: 12px;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      -webkit-mask-image: linear-gradient(to bottom, black 93%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 93%, transparent 100%);
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
       gap: 8px;
-      color: #bbb;
+      padding-top: 20px;
     }
 
-    .photo-item:first-child {
-      grid-column: 1 / -1;
-      aspect-ratio: 4/3;
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--light);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
     }
-
-    .photo-item span {
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .dot.active {
+      background: var(--accent);
+      transform: scale(1.4);
     }
 
     /* CONTACT */
@@ -161,7 +296,7 @@
     }
 
     .contact-label {
-      font-size: 10px;
+      font-size: 14px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
@@ -175,20 +310,22 @@
     }
 
     .contact-row-label {
-      font-size: 9px;
+      font-size: 12px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #555;
+      color: #888;
       margin-bottom: 6px;
     }
 
     .contact-row-value {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 300;
       color: var(--white);
       text-decoration: none;
       display: block;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     a.contact-row-value:hover { color: var(--accent); }
@@ -197,7 +334,7 @@
       background: var(--black);
       border-top: 1px solid #1a1a1a;
       padding: 20px 32px;
-      font-size: 10px;
+      font-size: 13px;
       letter-spacing: 0.1em;
       color: #444;
       text-align: center;
@@ -205,18 +342,18 @@
 
     /* DESKTOP */
     @media (min-width: 768px) {
-      .hero-img-placeholder { aspect-ratio: 16/9; }
-      .hero-caption { padding: 36px 48px 0; }
-      .hero-name { font-size: 72px; }
-      .divider { width: calc(100% - 96px); margin: 40px 48px; }
+      .hero-img { aspect-ratio: 16/7; }
+      .hero-caption { padding: 48px; }
+      .hero-name { font-size: 100px; }
+      .divider { width: calc(100% - 96px); margin: 44px 48px; }
       .about { padding: 0 48px 64px; }
       .about p { max-width: 560px; }
-      .photos { padding: 0 48px 72px; }
-      .photos-grid { grid-template-columns: repeat(3, 1fr); }
-      .photo-item:first-child { grid-column: auto; aspect-ratio: 2/3; }
+      .photos { padding: 0 0 72px; }
+      .photos-header { padding: 0 48px 20px; }
       .contact { padding: 80px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
       footer { padding: 24px 48px; }
     }
+
   </style>
 </head>
 <body>
@@ -224,55 +361,54 @@
   <nav>
     <a href="#" class="logo">JT Model Group</a>
     <a href="#contact" class="nav-contact">Contact</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#contact" id="mobile-contact">Contact</a>
+  </div>
+
   <div class="hero">
-    <div class="hero-img-placeholder">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-      </svg>
-      <span>Primary Photo</span>
-    </div>
-    <div class="hero-caption">
-      <h1 class="hero-name">JT</h1>
-      <span class="hero-type">Commercial · Editorial</span>
+    <div class="hero-wrap">
+      <img class="hero-img" src="photos/face_hands_holding.jpg" alt="JT">
+      <div class="hero-overlay"></div>
+      <div class="hero-caption">
+        <h1 class="hero-name">JT</h1>
+        <div class="hero-meta">
+          <span class="hero-type">Commercial · Editorial</span>
+          <span class="hero-location">Los Angeles</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="divider"></div>
 
   <div class="about">
-    <p>JT Model Group is a Los Angeles–based boutique agency representing JT — a dynamic male model available for commercial, editorial, and brand campaigns. We work with photographers, creative directors, and brands who value distinctive talent.</p>
+    <p>JT Model Group is a Los Angeles–based boutique agency representing JT, a dynamic male model available for commercial, editorial, and brand campaigns. We work with photographers, creative directors, and brands who value distinctive talent.</p>
   </div>
 
   <div class="photos">
-    <p class="photos-label">Portfolio</p>
-    <div class="photos-grid">
-      <div class="photo-item">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-        </svg>
-        <span>Photo 1</span>
-      </div>
-      <div class="photo-item">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-        </svg>
-        <span>Photo 2</span>
-      </div>
-      <div class="photo-item">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-        </svg>
-        <span>Photo 3</span>
-      </div>
-      <div class="photo-item">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-        </svg>
-        <span>Photo 4</span>
+    <div class="photos-header">
+      <p class="photos-label">Portfolio</p>
+      <div class="slider-controls">
+        <button class="slider-btn" id="prev" aria-label="Previous">&#8592;</button>
+        <button class="slider-btn" id="next" aria-label="Next">&#8594;</button>
       </div>
     </div>
+    <div class="slider-viewport">
+      <div class="slider-track" id="track">
+        <img class="slide" src="photos/hand_in_pocket.jpg" alt="Portfolio 1">
+        <img class="slide" src="photos/hand_on_shirt.jpg" alt="Portfolio 3">
+        <img class="slide" src="photos/hand_twist.jpg" alt="Portfolio 4">
+        <img class="slide" src="photos/hold_glasses.jpg" alt="Portfolio 5">
+        <img class="slide" src="photos/hold_perfume.jpg" alt="Portfolio 6">
+        <img class="slide" src="photos/hold_tea.jpg" alt="Portfolio 7">
+      </div>
+    </div>
+    <div class="slider-dots" id="dots"></div>
   </div>
 
   <div class="contact" id="contact">
@@ -299,6 +435,89 @@
   </div>
 
   <footer>© 2026 JT Model Group</footer>
+
+  <script>
+    const viewport = document.querySelector('.slider-viewport');
+    const track = document.getElementById('track');
+    const slides = Array.from(track.querySelectorAll('.slide'));
+    const dotsContainer = document.getElementById('dots');
+    const GAP = 12;
+    const total = slides.length;
+    let current = 0;
+    let perView = 1;
+
+    function getPerView() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function slideWidth() {
+      return (viewport.offsetWidth - (perView - 1) * GAP) / perView;
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      const pages = Math.ceil(total / perView);
+      const activePage = Math.round(current / perView);
+      for (let i = 0; i < pages; i++) {
+        const d = document.createElement('button');
+        d.className = 'dot' + (i === activePage ? ' active' : '');
+        d.setAttribute('aria-label', 'Page ' + (i + 1));
+        d.addEventListener('click', () => goTo(i * perView));
+        dotsContainer.appendChild(d);
+      }
+    }
+
+    function update() {
+      perView = getPerView();
+      const sw = slideWidth();
+      slides.forEach(s => s.style.width = sw + 'px');
+
+      const maxIndex = total - perView;
+      current = Math.min(current, maxIndex);
+
+      const offset = current * (sw + GAP);
+      track.style.transform = `translateX(-${offset}px)`;
+
+      buildDots();
+    }
+
+    function goTo(index) {
+      const maxIndex = total - perView;
+      current = Math.max(0, Math.min(index, maxIndex));
+      update();
+    }
+
+    document.getElementById('prev').addEventListener('click', () => goTo(current - perView));
+    document.getElementById('next').addEventListener('click', () => goTo(current + perView));
+
+    window.addEventListener('resize', update);
+    update();
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    document.getElementById('mobile-contact').addEventListener('click', closeMenu);
+
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMenu();
+      }
+    });
+  </script>
 
 </body>
 </html>
