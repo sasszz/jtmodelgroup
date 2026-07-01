@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>campaigns — JT Parino</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Tenor+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="logo">JT Parino</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="campaigns.html" class="nav-link active">campaigns</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="campaigns.html">campaigns</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">Campaigns</h1>
+        <p class="page-subtitle">
+          Sample campaigns created to showcase JT's range across commercial and
+          editorial work.
+        </p>
+      </div>
+      <div class="divider"></div>
+
+      <div class="ad-grid">
+        <div class="ad-item">
+          <img src="photos/ad_glasses.png" alt="Shaded — POC Clarity" />
+          <p class="ad-item-label">POC · Shaded</p>
+        </div>
+        <div class="ad-item">
+          <img src="photos/ad_tea.png" alt="THIS. Magazine — Ito En" />
+          <p class="ad-item-label">Ito En · THIS</p>
+        </div>
+        <div class="ad-item">
+          <img src="photos/ad_perfume.png" alt="The Art of Fragrance — Chloé" />
+          <p class="ad-item-label">Chloé · The Art of Fragrance</p>
+        </div>
+      </div>
+
+      <div class="ad-magazine">
+        <img src="photos/ad_magazine.png" alt="THIS. Magazine open spread" />
+        <p class="ad-item-label">Open Magazine Spread</p>
+      </div>
+    </div>
+
+    <div class="contact" id="contact">
+      <div>
+        <p class="contact-label">Get in Touch</p>
+        <div class="contact-list">
+          <div class="contact-row">
+            <div class="contact-row-label">Email</div>
+            <a href="mailto:info@jtmodelgroup.com" class="contact-row-value">info@jtmodelgroup.com</a>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-label">Phone</div>
+            <a href="tel:+14242291236" class="contact-row-value">+1 (424) 229-1236</a>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-label">Location</div>
+            <span class="contact-row-value">Los Angeles, CA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2026 JT Model Group</footer>
+
+    <script>
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      function closeMenu() {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      }
+
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      document.querySelectorAll(".mobile-menu a").forEach((a) => {
+        a.addEventListener("click", closeMenu);
+      });
+    </script>
+  </body>
+</html>

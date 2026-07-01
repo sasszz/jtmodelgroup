@@ -1,0 +1,88 @@
+{
+  "name": "Jose Gayda Parino III",
+  "profession": "Visual Effects",
+  "imdb_id": "nm15190199",
+  "imdb_url": "https://www.imdb.com/name/nm15190199/",
+  "known_for": [
+    "The Flash (2023)",
+    "Meg 2: The Trench (2023)",
+    "Black Adam (2022)"
+  ],
+  "credits": [
+    {
+      "title": "Wednesday",
+      "year": 2025,
+      "type": "TV Series",
+      "episodes": 8,
+      "role": "Stage operator",
+      "studio": "Eyeline Studios",
+      "rating": 8.0
+    },
+    {
+      "title": "Avatar: The Last Airbender",
+      "year": 2024,
+      "type": "TV Series",
+      "episodes": 2,
+      "role": "Stage operator: scanning assistant",
+      "studio": "Scanline VFX",
+      "rating": 7.2
+    },
+    {
+      "title": "Aquaman and the Lost Kingdom",
+      "year": 2023,
+      "type": "Film",
+      "episodes": null,
+      "role": "Stage operator: scanning assistant",
+      "studio": "Scanline VFX",
+      "rating": 5.6
+    },
+    {
+      "title": "Yu Yu Hakusho",
+      "year": 2023,
+      "type": "TV Series",
+      "episodes": 3,
+      "role": "Virtual production",
+      "studio": "Eyeline Studios",
+      "rating": 7.2
+    },
+    {
+      "title": "The Flash",
+      "year": 2023,
+      "type": "Film",
+      "episodes": null,
+      "role": "Production assistant",
+      "studio": "Scanline VFX",
+      "rating": 6.6
+    },
+    {
+      "title": "Meg 2: The Trench",
+      "year": 2023,
+      "type": "Film",
+      "episodes": null,
+      "role": "Stage operator: scanning assistant",
+      "studio": "Scanline VFX",
+      "rating": 5.0
+    },
+    {
+      "title": "Black Adam",
+      "year": 2022,
+      "type": "Film",
+      "episodes": null,
+      "role": "Digital artist",
+      "studio": "Scanline VFX",
+      "rating": 6.1
+    },
+    {
+      "title": "The Gray Man",
+      "year": 2022,
+      "type": "Film",
+      "episodes": null,
+      "role": "Production assistant",
+      "studio": "Scanline VFX",
+      "rating": 6.5
+    }
+  ],
+  "notes": "Scanline VFX and Eyeline Studios merged into a single unified brand, 'Eyeline', in October 2025 (previously operated as separate divisions under Netflix ownership since 2022).",
+  "source": "IMDb (https://www.imdb.com/name/nm15190199/), cross-checked against VFX industry news for completeness as of July 2026",
+  "last_verified": "2026-07-01"
+}

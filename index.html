@@ -1,523 +1,236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JT Model Group</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Tenor+Sans&display=swap" rel="stylesheet"/>
-  <style>
-    html, body { margin: 0; padding: 0; width: 100%; overflow-x: clip; }
-    html { scroll-behavior: smooth; background: #111; }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JT Parino</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Tenor+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="#" class="logo">JT Parino</a>
+      <div class="nav-links">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="campaigns.html" class="nav-link">campaigns</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
 
-    :root {
-      --black: #111;
-      --white: #fafaf8;
-      --gray: #444;
-      --light: #f0f0ec;
-      --accent: #b8a88a;
-    }
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="about.html">About</a>
+      <a href="campaigns.html">campaigns</a>
+      <a href="#contact" id="mobile-contact">Contact</a>
+    </div>
 
-    body {
-      background: var(--white);
-      color: var(--black);
-      font-family: 'Tenor Sans', sans-serif;
-      font-size: 16px;
-      letter-spacing: 0.05em;
-      -webkit-font-smoothing: antialiased;
-      min-width: 0;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 32px;
-      background: rgba(250,250,248,0.92);
-      backdrop-filter: blur(12px);
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 300;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--black);
-      text-decoration: none;
-    }
-
-    .nav-contact {
-      font-size: 13px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gray);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-contact:hover { color: var(--black); }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 1.5px;
-      background: var(--black);
-      transition: transform 0.3s, opacity 0.3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 72px;
-      left: 0; right: 0;
-      z-index: 99;
-      background: rgba(250,250,248,0.97);
-      backdrop-filter: blur(12px);
-      padding: 0 32px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-    }
-    .mobile-menu.open {
-      max-height: 120px;
-      padding: 24px 32px;
-    }
-    .mobile-menu a {
-      font-size: 15px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--black);
-      text-decoration: none;
-      display: block;
-    }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    @media (max-width: 767px) {
-      .nav-contact { display: none; }
-      .hamburger { display: flex; }
-      .mobile-menu { display: block; }
-    }
-
-    /* HERO */
-    .hero {
-      padding-top: 72px;
-      position: relative;
-    }
-
-    .hero-wrap {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.08) 0%,
-        rgba(0,0,0,0) 35%,
-        rgba(0,0,0,0.55) 80%,
-        rgba(0,0,0,0.75) 100%
-      );
-    }
-
-    .hero-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .hero-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 72px;
-      font-weight: 300;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      line-height: 1;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .hero-type {
-      font-size: 14px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.88);
-    }
-
-    .hero-location {
-      font-size: 14px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #d4b98a;
-    }
-
-    /* DIVIDER */
-    .divider {
-      width: calc(100% - 64px);
-      height: 1px;
-      background: var(--light);
-      margin: 36px 32px;
-    }
-
-    /* ABOUT */
-    .about { padding: 0 32px 48px; }
-    .about p {
-      font-size: 17px;
-      line-height: 1.9;
-      color: var(--gray);
-    }
-
-    /* PORTFOLIO SLIDER */
-    .photos { padding: 0 0 56px; overflow: hidden; }
-
-    .photos-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 32px 20px;
-    }
-
-    .photos-label {
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .slider-controls {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .slider-btn {
-      background: none;
-      border: 1px solid var(--light);
-      color: var(--black);
-      width: 44px;
-      height: 44px;
-      cursor: pointer;
-      font-size: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s, color 0.2s;
-      line-height: 1;
-    }
-    .slider-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-.slider-viewport {
-      overflow: hidden;
-      width: 100%;
-      height: 60vh;
-      max-height: 520px;
-    }
-
-    .slider-track {
-      display: flex;
-      gap: 12px;
-      height: 100%;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform;
-    }
-
-    .slide {
-      flex: 0 0 auto;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      -webkit-mask-image: linear-gradient(to bottom, black 93%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 93%, transparent 100%);
-    }
-
-    .slider-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding-top: 20px;
-    }
-
-    .dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--light);
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .dot.active {
-      background: var(--accent);
-      transform: scale(1.4);
-    }
-
-    /* CONTACT */
-    .contact {
-      background: var(--black);
-      color: var(--white);
-      padding: 56px 32px 64px;
-    }
-
-    .contact-label {
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 36px;
-    }
-
-    .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    .contact-row-label {
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 6px;
-    }
-
-    .contact-row-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 300;
-      color: var(--white);
-      text-decoration: none;
-      display: block;
-      overflow-wrap: break-word;
-      word-break: break-word;
-    }
-
-    a.contact-row-value:hover { color: var(--accent); }
-
-    footer {
-      background: var(--black);
-      border-top: 1px solid #1a1a1a;
-      padding: 20px 32px;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      color: #444;
-      text-align: center;
-    }
-
-    /* DESKTOP */
-    @media (min-width: 768px) {
-      .hero-img { aspect-ratio: 16/7; }
-      .hero-caption { padding: 48px; }
-      .hero-name { font-size: 100px; }
-      .divider { width: calc(100% - 96px); margin: 44px 48px; }
-      .about { padding: 0 48px 64px; }
-      .about p { max-width: 560px; }
-      .photos { padding: 0 0 72px; }
-      .photos-header { padding: 0 48px 20px; }
-      .contact { padding: 80px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-      footer { padding: 24px 48px; }
-    }
-
-  </style>
-</head>
-<body>
-
-  <nav>
-    <a href="#" class="logo">JT Model Group</a>
-    <a href="#contact" class="nav-contact">Contact</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#contact" id="mobile-contact">Contact</a>
-  </div>
-
-  <div class="hero">
-    <div class="hero-wrap">
-      <img class="hero-img" src="photos/face_hands_holding.jpg" alt="JT">
-      <div class="hero-overlay"></div>
-      <div class="hero-caption">
+    <div class="hero">
+      <div class="hero-left">
         <h1 class="hero-name">JT</h1>
         <div class="hero-meta">
           <span class="hero-type">Commercial · Editorial</span>
           <span class="hero-location">Los Angeles</span>
         </div>
+        <p class="hero-bio">
+          JT Model Group is a Los Angeles–based boutique agency representing JT,
+          a dynamic male model available for commercial, editorial, and brand
+          campaigns. We work with photographers, creative directors, and brands
+          who value distinctive talent.
+        </p>
       </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="about">
-    <p>JT Model Group is a Los Angeles–based boutique agency representing JT, a dynamic male model available for commercial, editorial, and brand campaigns. We work with photographers, creative directors, and brands who value distinctive talent.</p>
-  </div>
-
-  <div class="photos">
-    <div class="photos-header">
-      <p class="photos-label">Portfolio</p>
-      <div class="slider-controls">
-        <button class="slider-btn" id="prev" aria-label="Previous">&#8592;</button>
-        <button class="slider-btn" id="next" aria-label="Next">&#8594;</button>
-      </div>
-    </div>
-    <div class="slider-viewport">
-      <div class="slider-track" id="track">
-        <img class="slide" src="photos/hand_in_pocket.jpg" alt="Portfolio 1">
-        <img class="slide" src="photos/hand_on_shirt.jpg" alt="Portfolio 3">
-        <img class="slide" src="photos/hand_twist.jpg" alt="Portfolio 4">
-        <img class="slide" src="photos/hold_glasses.jpg" alt="Portfolio 5">
-        <img class="slide" src="photos/hold_perfume.jpg" alt="Portfolio 6">
-        <img class="slide" src="photos/hold_tea.jpg" alt="Portfolio 7">
-      </div>
-    </div>
-    <div class="slider-dots" id="dots"></div>
-  </div>
-
-  <div class="contact" id="contact">
-    <div>
-      <p class="contact-label">Get in Touch</p>
-      <div class="contact-list">
-        <div class="contact-row">
-          <div class="contact-row-label">Email</div>
-          <a href="mailto:info@jtmodelgroup.com" class="contact-row-value">info@jtmodelgroup.com</a>
-        </div>
-        <div class="contact-row">
-          <div class="contact-row-label">Phone</div>
-          <a href="tel:+14242291236" class="contact-row-value">+1 ‪(424) 229-1236‬</a>
-        </div>
-        <div class="contact-row">
-          <div class="contact-row-label">Location</div>
-          <span class="contact-row-value">Los Angeles, CA</span>
+      <div class="hero-wrap">
+        <img class="hero-img" src="photos/face_hands_holding.jpg" alt="JT" />
+        <div class="hero-overlay"></div>
+        <div class="hero-caption">
+          <h1 class="hero-name">JT</h1>
+          <div class="hero-meta">
+            <span class="hero-type">Commercial · Editorial</span>
+            <span class="hero-location">Los Angeles</span>
+          </div>
         </div>
       </div>
     </div>
-    <div style="display:flex;align-items:flex-end;">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,36px);font-weight:300;font-style:italic;line-height:1.5;color:#333;">One model.<br>The right one.</p>
+
+    <div class="divider"></div>
+
+    <div class="about">
+      <p>
+        JT Model Group is a Los Angeles–based boutique agency representing JT, a
+        dynamic male model available for commercial, editorial, and brand
+        campaigns. We work with photographers, creative directors, and brands
+        who value distinctive talent.
+      </p>
     </div>
-  </div>
 
-  <footer>© 2026 JT Model Group</footer>
+    <div class="photos">
+      <div class="photos-header">
+        <p class="photos-label">Portfolio</p>
+        <div class="slider-controls">
+          <button class="slider-btn" id="prev" aria-label="Previous">
+            &#8592;
+          </button>
+          <button class="slider-btn" id="next" aria-label="Next">
+            &#8594;
+          </button>
+        </div>
+      </div>
+      <div class="slider-viewport">
+        <div class="slider-track" id="track">
+          <img
+            class="slide"
+            src="photos/hand_in_pocket.jpg"
+            alt="Portfolio 1"
+          />
+          <img class="slide" src="photos/hand_on_shirt.jpg" alt="Portfolio 3" />
+          <img class="slide" src="photos/hand_twist.jpg" alt="Portfolio 4" />
+          <img class="slide" src="photos/hold_glasses.jpg" alt="Portfolio 5" />
+          <img class="slide" src="photos/hold_perfume.jpg" alt="Portfolio 6" />
+          <img class="slide" src="photos/hold_tea.jpg" alt="Portfolio 7" />
+        </div>
+      </div>
+      <div class="slider-dots" id="dots"></div>
+    </div>
 
-  <script>
-    const viewport = document.querySelector('.slider-viewport');
-    const track = document.getElementById('track');
-    const slides = Array.from(track.querySelectorAll('.slide'));
-    const dotsContainer = document.getElementById('dots');
-    const GAP = 12;
-    const total = slides.length;
-    let current = 0;
-    let perView = 1;
+    <div class="contact" id="contact">
+      <div>
+        <p class="contact-label">Get in Touch</p>
+        <div class="contact-list">
+          <div class="contact-row">
+            <div class="contact-row-label">Email</div>
+            <a href="mailto:info@jtmodelgroup.com" class="contact-row-value"
+              >info@jtmodelgroup.com</a
+            >
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-label">Phone</div>
+            <a href="tel:+14242291236" class="contact-row-value"
+              >+1 ‪(424) 229-1236‬</a
+            >
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-label">Location</div>
+            <span class="contact-row-value">Los Angeles, CA</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    function getPerView() {
-      if (window.innerWidth >= 1024) return 3;
-      if (window.innerWidth >= 768) return 2;
-      return 1;
-    }
+    <footer>© 2026 JT Model Group</footer>
 
-    function slideWidth() {
-      return (viewport.offsetWidth - (perView - 1) * GAP) / perView;
-    }
+    <script>
+      const viewport = document.querySelector(".slider-viewport");
+      const track = document.getElementById("track");
+      const slides = Array.from(track.querySelectorAll(".slide"));
+      const dotsContainer = document.getElementById("dots");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      const GAP = 12;
+      const total = slides.length;
+      let current = 0;
+      let perView = 1;
 
-    function buildDots() {
-      dotsContainer.innerHTML = '';
-      const pages = Math.ceil(total / perView);
-      const activePage = Math.round(current / perView);
-      for (let i = 0; i < pages; i++) {
-        const d = document.createElement('button');
-        d.className = 'dot' + (i === activePage ? ' active' : '');
-        d.setAttribute('aria-label', 'Page ' + (i + 1));
-        d.addEventListener('click', () => goTo(i * perView));
-        dotsContainer.appendChild(d);
+      function getPerView() {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
       }
-    }
 
-    function update() {
-      perView = getPerView();
-      const sw = slideWidth();
-      slides.forEach(s => s.style.width = sw + 'px');
+      function slideWidth() {
+        return (viewport.offsetWidth - (perView - 1) * GAP) / perView;
+      }
 
-      const maxIndex = total - perView;
-      current = Math.min(current, maxIndex);
+      function buildDots() {
+        dotsContainer.innerHTML = "";
+        const pages = Math.ceil(total / perView);
+        const activePage = Math.round(current / perView);
+        for (let i = 0; i < pages; i++) {
+          const d = document.createElement("button");
+          d.className = "dot" + (i === activePage ? " active" : "");
+          d.setAttribute("aria-label", "Page " + (i + 1));
+          d.addEventListener("click", () => goTo(i * perView));
+          dotsContainer.appendChild(d);
+        }
+      }
 
-      const offset = current * (sw + GAP);
-      track.style.transform = `translateX(-${offset}px)`;
+      function updateButtons() {
+        const maxIndex = total - perView;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current >= maxIndex;
+      }
 
-      buildDots();
-    }
+      function update() {
+        perView = getPerView();
+        const sw = slideWidth();
+        slides.forEach((s) => (s.style.width = sw + "px"));
 
-    function goTo(index) {
-      const maxIndex = total - perView;
-      current = Math.max(0, Math.min(index, maxIndex));
+        const maxIndex = total - perView;
+        current = Math.min(current, maxIndex);
+
+        const offset = current * (sw + GAP);
+        track.style.transform = `translateX(-${offset}px)`;
+
+        buildDots();
+        updateButtons();
+      }
+
+      function goTo(index) {
+        const maxIndex = total - perView;
+        current = Math.max(0, Math.min(index, maxIndex));
+        update();
+      }
+
+      prevBtn.addEventListener("click", () => goTo(current - perView));
+      nextBtn.addEventListener("click", () => goTo(current + perView));
+
+      // Swipe support
+      let touchStartX = 0;
+      viewport.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.touches[0].clientX;
+        },
+        { passive: true },
+      );
+      viewport.addEventListener("touchend", (e) => {
+        const delta = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(delta) > 50) {
+          delta > 0 ? goTo(current + perView) : goTo(current - perView);
+        }
+      });
+
+      window.addEventListener("resize", update);
       update();
-    }
 
-    document.getElementById('prev').addEventListener('click', () => goTo(current - perView));
-    document.getElementById('next').addEventListener('click', () => goTo(current + perView));
+      // Hamburger menu
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
 
-    window.addEventListener('resize', update);
-    update();
-
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    function closeMenu() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    }
-
-    hamburger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-    });
-
-    document.getElementById('mobile-contact').addEventListener('click', closeMenu);
-
-    document.addEventListener('click', (e) => {
-      if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-        closeMenu();
+      function closeMenu() {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
       }
-    });
-  </script>
 
-</body>
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+      });
+
+      document
+        .getElementById("mobile-contact")
+        .addEventListener("click", closeMenu);
+
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+          closeMenu();
+        }
+      });
+    </script>
+  </body>
 </html>

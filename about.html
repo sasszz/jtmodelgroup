@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — JT Parino</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Tenor+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="logo">JT Parino</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="campaigns.html" class="nav-link">campaigns</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="campaigns.html">campaigns</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="page-content">
+      <div class="page-header">
+        <h1 class="page-title">About</h1>
+        <p class="page-subtitle">
+          JT is a Los Angeles–based hand model and visual effects artist. With a
+          background in visual effects spanning major film and television
+          productions, he brings a unique eye to every shoot.
+        </p>
+      </div>
+      <div class="divider"></div>
+
+      <div class="hands-grid">
+        <div>
+          <img
+            src="photos/both_hands_front.jpg"
+            alt="JT Parino — hands front"
+          />
+          <p class="hand-label">Palms</p>
+        </div>
+        <div>
+          <img src="photos/both_hands_back.jpg" alt="JT Parino — hands back" />
+          <p class="hand-label">Knuckles</p>
+        </div>
+      </div>
+
+      <div class="interests-section">
+        <p class="interests-label">Interests</p>
+        <div class="interests-list">
+          <span class="interest-tag">Film</span>
+          <span class="interest-tag">Photography</span>
+          <span class="interest-tag">Visual Effects</span>
+          <span class="interest-tag">Video Games</span>
+          <span class="interest-tag">Fitness</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="credits-section" id="credits">
+      <div class="credits-header">
+        <p class="credits-label">Film & TV</p>
+        <h2 class="credits-heading">Credits</h2>
+      </div>
+      <div class="credits-track-wrap" id="credits-wrap">
+        <div class="credits-track" id="credits-track"></div>
+      </div>
+    </section>
+
+    <div class="contact" id="contact">
+      <div>
+        <p class="contact-label">Get in Touch</p>
+        <div class="contact-list">
+          <div class="contact-row">
+            <div class="contact-row-label">Email</div>
+            <a href="mailto:info@jtmodelgroup.com" class="contact-row-value">info@jtmodelgroup.com</a>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-label">Phone</div>
+            <a href="tel:+14242291236" class="contact-row-value">+1 (424) 229-1236</a>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-label">Location</div>
+            <span class="contact-row-value">Los Angeles, CA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2026 JT Model Group</footer>
+
+    <script>
+      const CREDITS = [
+        {
+          title: "Wednesday",
+          year: 2025,
+          type: "TV Series",
+          role: "Stage operator",
+          img: "credits/wednesday.jpg",
+        },
+        {
+          title: "Avatar: The Last Airbender",
+          year: 2024,
+          type: "TV Series",
+          role: "Stage operator: scanning assistant",
+          img: "credits/airbender.jpg",
+        },
+        {
+          title: "Aquaman and the Lost Kingdom",
+          year: 2023,
+          type: "Film",
+          role: "Stage operator: scanning assistant",
+          img: "credits/aquaman.jpg",
+        },
+        {
+          title: "Yu Yu Hakusho",
+          year: 2023,
+          type: "TV Series",
+          role: "Virtual production",
+          img: "credits/yuyuhakusho.jpg",
+        },
+        {
+          title: "The Flash",
+          year: 2023,
+          type: "Film",
+          role: "Production assistant",
+          img: "credits/flash.jpg",
+        },
+        {
+          title: "Meg 2: The Trench",
+          year: 2023,
+          type: "Film",
+          role: "Stage operator: scanning assistant",
+          img: "credits/meg2.jpg",
+        },
+        {
+          title: "Black Adam",
+          year: 2022,
+          type: "Film",
+          role: "Digital artist",
+          img: "credits/blackadam.jpg",
+        },
+        {
+          title: "The Gray Man",
+          year: 2022,
+          type: "Film",
+          role: "Production assistant",
+          img: "credits/grayman.jpg",
+        },
+      ];
+
+      function buildCard(credit) {
+        const card = document.createElement("div");
+        card.className = "credit-card";
+        card.innerHTML = `
+        <img class="credit-poster" src="${credit.img}" alt="${credit.title}" draggable="false">
+        <div class="credit-info">
+          <div class="credit-title">${credit.title}</div>
+          <div class="credit-role">${credit.role}</div>
+          <div class="credit-meta">${credit.year} · ${credit.type}</div>
+        </div>
+      `;
+        return card;
+      }
+
+      const track = document.getElementById("credits-track");
+      const wrap = document.getElementById("credits-wrap");
+
+      CREDITS.forEach((c) => track.appendChild(buildCard(c)));
+      CREDITS.forEach((c) => track.appendChild(buildCard(c)));
+
+      let pos = 0;
+      let paused = false;
+      const SPEED = 0.6;
+
+      function getSetWidth() {
+        const cards = track.querySelectorAll(".credit-card");
+        const half = cards.length / 2;
+        const gap = parseInt(getComputedStyle(track).gap) || 16;
+        return cards[0].offsetWidth * half + gap * (half - 1) + gap;
+      }
+
+      function animate() {
+        if (!paused) {
+          pos += SPEED;
+          const setWidth = getSetWidth();
+          if (pos >= setWidth) pos -= setWidth;
+          track.style.transform = `translateX(-${pos}px)`;
+        }
+        requestAnimationFrame(animate);
+      }
+
+      wrap.addEventListener("mouseenter", () => {
+        paused = true;
+      });
+      wrap.addEventListener("mouseleave", () => {
+        paused = false;
+      });
+      requestAnimationFrame(animate);
+
+      // Hamburger
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      function closeMenu() {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      }
+
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      document.querySelectorAll(".mobile-menu a").forEach((a) => {
+        a.addEventListener("click", closeMenu);
+      });
+    </script>
+  </body>
+</html>
