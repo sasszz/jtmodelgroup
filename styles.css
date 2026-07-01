@@ -278,8 +278,8 @@ nav {
   padding: 0 32px 20px;
 }
 
-.photos-label {
-  font-size: 14px;
+.section-label {
+  font-size: 16px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
@@ -647,10 +647,6 @@ footer {
 }
 
 .interests-label {
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
   margin-bottom: 20px;
 }
 
@@ -667,12 +663,7 @@ footer {
   font-style: italic;
   letter-spacing: 0.04em;
   color: var(--dark);
-  border-top: 1px solid var(--divider);
   padding: 14px 0;
-}
-
-.interest-tag:last-child {
-  border-bottom: 1px solid var(--divider);
 }
 
 @media (min-width: 768px) {

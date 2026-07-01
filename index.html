@@ -38,10 +38,9 @@
           <span class="hero-location">Los Angeles</span>
         </div>
         <p class="hero-bio">
-          JT Model Group is a Los Angeles–based boutique agency representing JT,
-          a dynamic male model available for commercial, editorial, and brand
-          campaigns. We work with photographers, creative directors, and brands
-          who value distinctive talent.
+          JT Model Group presents JT Parino, a dynamic male model available for
+          commercial, editorial, and brand campaigns. He is currently seeking
+          commercial representation.
         </p>
       </div>
       <div class="hero-wrap">
@@ -61,16 +60,15 @@
 
     <div class="about">
       <p>
-        JT Model Group is a Los Angeles–based boutique agency representing JT, a
-        dynamic male model available for commercial, editorial, and brand
-        campaigns. We work with photographers, creative directors, and brands
-        who value distinctive talent.
+        JT Model Group presents JT Parino, a dynamic male model available for
+        commercial, editorial, and brand campaigns. He is currently seeking
+        commercial representation.
       </p>
     </div>
 
     <div class="photos">
       <div class="photos-header">
-        <p class="photos-label">Portfolio</p>
+        <p class="section-label photos-label">Portfolio</p>
         <div class="slider-controls">
           <button class="slider-btn" id="prev" aria-label="Previous">
             &#8592;
@@ -193,20 +191,28 @@
       let touchStartY = 0;
       let swipeLocked = false;
 
-      viewport.addEventListener("touchstart", (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        swipeLocked = false;
-      }, { passive: true });
+      viewport.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          swipeLocked = false;
+        },
+        { passive: true },
+      );
 
-      viewport.addEventListener("touchmove", (e) => {
-        const dx = Math.abs(e.touches[0].clientX - touchStartX);
-        const dy = Math.abs(e.touches[0].clientY - touchStartY);
-        if (!swipeLocked && dx > dy && dx > 8) {
-          swipeLocked = true;
-        }
-        if (swipeLocked) e.preventDefault();
-      }, { passive: false });
+      viewport.addEventListener(
+        "touchmove",
+        (e) => {
+          const dx = Math.abs(e.touches[0].clientX - touchStartX);
+          const dy = Math.abs(e.touches[0].clientY - touchStartY);
+          if (!swipeLocked && dx > dy && dx > 8) {
+            swipeLocked = true;
+          }
+          if (swipeLocked) e.preventDefault();
+        },
+        { passive: false },
+      );
 
       viewport.addEventListener("touchend", (e) => {
         const delta = touchStartX - e.changedTouches[0].clientX;
