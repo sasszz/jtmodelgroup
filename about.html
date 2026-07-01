@@ -202,12 +202,33 @@
         requestAnimationFrame(animate);
       }
 
-      wrap.addEventListener("mouseenter", () => {
+      wrap.addEventListener("mouseenter", () => { paused = true; });
+      wrap.addEventListener("mouseleave", () => { paused = false; });
+
+      let touchStartX = 0;
+      let touchStartPos = 0;
+      let isTouching = false;
+
+      wrap.addEventListener("touchstart", (e) => {
+        isTouching = true;
         paused = true;
-      });
-      wrap.addEventListener("mouseleave", () => {
+        touchStartX = e.touches[0].clientX;
+        touchStartPos = pos;
+      }, { passive: true });
+
+      wrap.addEventListener("touchmove", (e) => {
+        if (!isTouching) return;
+        const delta = touchStartX - e.touches[0].clientX;
+        const setWidth = getSetWidth();
+        pos = ((touchStartPos + delta) % setWidth + setWidth) % setWidth;
+        track.style.transform = `translateX(-${pos}px)`;
+      }, { passive: true });
+
+      wrap.addEventListener("touchend", () => {
+        isTouching = false;
         paused = false;
       });
+
       requestAnimationFrame(animate);
 
       // Hamburger

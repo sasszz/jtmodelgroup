@@ -349,10 +349,10 @@ nav {
 }
 
 .dot {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--light);
+  background: #bbb;
   border: none;
   cursor: pointer;
   padding: 0;

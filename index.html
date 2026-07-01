@@ -190,13 +190,24 @@
 
       // Swipe support
       let touchStartX = 0;
-      viewport.addEventListener(
-        "touchstart",
-        (e) => {
-          touchStartX = e.touches[0].clientX;
-        },
-        { passive: true },
-      );
+      let touchStartY = 0;
+      let swipeLocked = false;
+
+      viewport.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        swipeLocked = false;
+      }, { passive: true });
+
+      viewport.addEventListener("touchmove", (e) => {
+        const dx = Math.abs(e.touches[0].clientX - touchStartX);
+        const dy = Math.abs(e.touches[0].clientY - touchStartY);
+        if (!swipeLocked && dx > dy && dx > 8) {
+          swipeLocked = true;
+        }
+        if (swipeLocked) e.preventDefault();
+      }, { passive: false });
+
       viewport.addEventListener("touchend", (e) => {
         const delta = touchStartX - e.changedTouches[0].clientX;
         if (Math.abs(delta) > 50) {
